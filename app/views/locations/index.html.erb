@@ -17,8 +17,8 @@
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [110.33411, -7.88461],
-        zoom: 9
+        center: <%= @center %>,
+        zoom: 7
     });
 
     var stores = <%= @geojson.to_json.html_safe %>
