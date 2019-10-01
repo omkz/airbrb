@@ -1,31 +1,46 @@
-<p id="notice"><%= notice %></p>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+       <%= render 'search' %>
+       <%= render 'list' %>
+      </div>
+      <div class="column">
+        <div id='map'></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h1>Locations</h1>
+<script>
+    mapboxgl.accessToken = "<%= Rails.application.credentials.geocoder[:api_key]%>";
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [110.33411, -7.88461],
+        zoom: 9
+    });
+    // var marker = new mapboxgl.Marker()
+    //     .setLngLat([110.33411, -7.88461]) // [lng, lat] coordinates to place the marker at
+    //     .addTo(map); // add the marker to the map
 
-<table>
-  <thead>
-    <tr>
-      <th>Address</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    map.on('load', function(e) {
+        // Add the data to your map as a layer
+        map.addLayer({
+            id: 'locations',
+            type: 'symbol',
+            // Add a GeoJSON source containing place coordinates and information.
+            source: {
+                type: 'geojson',
+                data: <%= @geojson.to_json.html_safe %>
+            },
+            layout: {
+                'icon-image': 'marker-11',
+                "icon-size": 5,
+                'icon-allow-overlap': true,
+            }
+        });
+    });
+</script>
 
-  <tbody>
-    <% @locations.each do |location| %>
-      <tr>
-        <td><%= location.address %></td>
-        <td><%= location.latitude %></td>
-        <td><%= location.longitude %></td>
-        <td><%= link_to 'Show', location %></td>
-        <td><%= link_to 'Edit', edit_location_path(location) %></td>
-        <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Location', new_location_path %>

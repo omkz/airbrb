@@ -1,10 +1,13 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
-  # GET /locations
-  # GET /locations.json
   def index
-    @locations = Location.all
+    if params[:search].present?
+      @locations = Location.near(params[:search], 50, :order => :distance)
+      @geojson = build_geojson
+    else
+      @locations = Location.all
+    end
   end
 
   # GET /locations/1
@@ -62,13 +65,21 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_location
-      @location = Location.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def location_params
-      params.require(:location).permit(:address, :latitude, :longitude)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_location
+    @location = Location.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def location_params
+    params.require(:location).permit(:address, :latitude, :longitude)
+  end
+
+  def build_geojson
+    {
+        type: "FeatureCollection",
+        features: @locations.map(&:to_feature)
+    }
+  end
 end
