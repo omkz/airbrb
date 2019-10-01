@@ -6,8 +6,6 @@ class LocationsController < ApplicationController
       @locations = Location.near(params[:search], 50, :order => :distance)
       @center = Geocoder.search(params[:search]).first.coordinates.reverse
       @geojson = build_geojson
-    else
-      @locations = Location.all
     end
   end
 
