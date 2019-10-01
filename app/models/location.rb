@@ -12,6 +12,10 @@ class Location < ApplicationRecord
         "geometry": {
             "type": "Point",
             "coordinates": coordinates
+        },
+        "properties": {
+            "id": id,
+            "address": address
         }
     }
   end
