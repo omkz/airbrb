@@ -5,7 +5,13 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.all
+    # @listings = Listing.all
+
+    if params[:search].present?
+      @listings = Listing.near(params[:search], 50, :order => :distance)
+      @center = Geocoder.search(params[:search]).first.coordinates.reverse
+      @geojson = build_geojson
+    end
   end
 
   # GET /listings/1
@@ -74,4 +80,13 @@ class ListingsController < ApplicationController
     def listing_params
       params.require(:listing).permit(:name, :listing_type, :bedrom, :bathroom, :description, :address, :is_tv, :is_kitchen, :is_air, :is_heating, :is_internet, :price, :latitude, :longitude, :user_id)
     end
+
+  def build_geojson
+    {
+        type: "FeatureCollection",
+        features: @listings.map(&:to_feature)
+    }
+  end
+
+
 end

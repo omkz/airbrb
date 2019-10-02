@@ -1,55 +1,48 @@
-<p id="notice"><%= notice %></p>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <%= render 'list' %>
+      </div>
+      <div class="column">
+        <div id='map'></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h1>Listings</h1>
+<script>
+    mapboxgl.accessToken = "<%= Rails.application.credentials.geocoder[:api_key]%>";
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: <%= @center %>,
+        zoom: 11
+    });
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Bedrom</th>
-      <th>Bathroom</th>
-      <th>Summary</th>
-      <th>Address</th>
-      <th>Is tv</th>
-      <th>Is kitchen</th>
-      <th>Is air</th>
-      <th>Is heating</th>
-      <th>Is internet</th>
-      <th>Price</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    var stores = <%= @geojson.to_json.html_safe %>
+        map.on('load', function(e) {
+            // Add the data to your map as a layer
+            map.addLayer({
+                id: 'locations',
+                type: 'symbol',
+                // Add a GeoJSON source containing place coordinates and information.
+                source: {
+                    type: 'geojson',
+                    data: stores
+                }
+            });
+        });
 
-  <tbody>
-    <% @listings.each do |listing| %>
-      <tr>
-        <td><%= listing.name %></td>
-        <td><%= listing.listing_type %></td>
-        <td><%= listing.bedrom %></td>
-        <td><%= listing.bathroom %></td>
-        <td><%= listing.description %></td>
-        <td><%= listing.address %></td>
-        <td><%= listing.is_tv %></td>
-        <td><%= listing.is_kitchen %></td>
-        <td><%= listing.is_air %></td>
-        <td><%= listing.is_heating %></td>
-        <td><%= listing.is_internet %></td>
-        <td><%= listing.price %></td>
-        <td><%= listing.latitude %></td>
-        <td><%= listing.longitude %></td>
-        <td><%= listing.user_id %></td>
-        <td><%= link_to 'Show', listing %></td>
-        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    stores.features.forEach(function(marker) {
+        var popup = new mapboxgl.Popup()
+            .setText(marker.properties.address);
 
-<br>
+        new mapboxgl.Marker()
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(popup)
+            .addTo(map);
+    });
+</script>
 
-<%= link_to 'New Listing', new_listing_path %>
+
