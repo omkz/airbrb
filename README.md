@@ -2,7 +2,7 @@
 
 AirBRB is an open-source marketplace platform based on Ruby on Rails 6.
 
-[![Screenshot](https://raw.githubusercontent.com/omkz/airbrb/master/public/Screenshot.png)](https://www.youtube.com/watch?v=4hOGtcj1WBE)
+![Airbrb Screenshot](https://raw.githubusercontent.com/omkz/airbrb/master/public/Screenshot.png)
 
 ## Tech Stack
 
