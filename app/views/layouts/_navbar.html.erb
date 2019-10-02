@@ -37,15 +37,22 @@
     </div>
     <%= render "layouts/search_navbar" %>
     <div class="navbar-end">
-
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
+          <% if user_signed_in? %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Logged in as <%= current_user.email %>
+              </a>
+              <div class="navbar-dropdown">
+                <%= link_to 'Edit profile', edit_user_registration_path, class: "navbar-item" %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "navbar-item" %>
+              </div>
+            </div>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path, :class => 'button is-primary'  %>
+            <%= link_to "Login", new_user_session_path, :class => 'button is-light'  %>
+          <% end %>
         </div>
       </div>
     </div>

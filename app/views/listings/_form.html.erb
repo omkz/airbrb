@@ -1,0 +1,87 @@
+<%= form_with(model: listing, local: true) do |form| %>
+  <% if listing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+        <% listing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :listing_type %>
+    <%= form.text_field :listing_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bedrom %>
+    <%= form.number_field :bedrom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bathroom %>
+    <%= form.number_field :bathroom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_tv %>
+    <%= form.check_box :is_tv %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_kitchen %>
+    <%= form.check_box :is_kitchen %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_air %>
+    <%= form.check_box :is_air %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_heating %>
+    <%= form.check_box :is_heating %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_internet %>
+    <%= form.check_box :is_internet %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

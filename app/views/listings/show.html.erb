@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @listing.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @listing.listing_type %>
+</p>
+
+<p>
+  <strong>Bedrom:</strong>
+  <%= @listing.bedrom %>
+</p>
+
+<p>
+  <strong>Bathroom:</strong>
+  <%= @listing.bathroom %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @listing.description %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @listing.address %>
+</p>
+
+<p>
+  <strong>Is tv:</strong>
+  <%= @listing.is_tv %>
+</p>
+
+<p>
+  <strong>Is kitchen:</strong>
+  <%= @listing.is_kitchen %>
+</p>
+
+<p>
+  <strong>Is air:</strong>
+  <%= @listing.is_air %>
+</p>
+
+<p>
+  <strong>Is heating:</strong>
+  <%= @listing.is_heating %>
+</p>
+
+<p>
+  <strong>Is internet:</strong>
+  <%= @listing.is_internet %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @listing.price %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @listing.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @listing.longitude %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @listing.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_listing_path(@listing) %> |
+<%= link_to 'Back', listings_path %>
