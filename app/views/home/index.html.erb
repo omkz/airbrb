@@ -1,6 +1,25 @@
-<%= form_tag locations_path, :method => :get do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search Near", :name => nil %>
-<% end %>
-<!-- rest of page -->
+<section class="hero is-info is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-6 is-offset-3">
+        <h1 class="title">
+          Coming Soon
+        </h1>
+
+        <div class="box">
+          <%= form_tag listings_path, :method => :get, class: "" do %>
+          <div class="field is-grouped">
+            <p class="control is-expanded">
+              <%= text_field_tag :search, params[:search], class: "input", placeholder: "search location" %> &nbsp;
+            </p>
+            <p class="control">
+              <%= submit_tag "Search", :name => nil, class: "button is-primary" %>
+            </p>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
