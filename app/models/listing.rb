@@ -19,6 +19,7 @@ class Listing < ApplicationRecord
         },
         "properties": {
             "id": id,
+            "name": name,
             "address": address
         }
     }

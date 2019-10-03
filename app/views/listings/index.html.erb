@@ -36,7 +36,7 @@
 
     stores.features.forEach(function(marker) {
         var popup = new mapboxgl.Popup()
-            .setText(marker.properties.address);
+            .setText(marker.properties.name);
 
         new mapboxgl.Marker()
             .setLngLat(marker.geometry.coordinates)
